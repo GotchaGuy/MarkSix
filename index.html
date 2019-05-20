@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+</head>
+<body>
+    <div id="app">
+        
+        <section>
+            <div class="uno">
+                <h1>Login</h1>
+                <p>{{ loginDesc }}</p>
+            </div>
+            <div class="dos">
+                <h2>Email</h2>
+                <input type="text" id="email" v-model="newUN" v-bind:placeholder="placeholderUN">
+                <div>
+                    <h2>Password</h2>
+                    <div @click="inputTypeChange" class="eye">
+                        <i v-bind:class="visual"></i>
+                    </div>
+                </div>
+                <input v-model="newP" v-bind:type="inputType">
+                <button @click="validate">Log in</button>
+                <p id="error"></p>
+            </div>
+        </section>
+        
+        
+        
+        
+        
+    </div>
+    
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(238, 235, 235);
+        }
+        section {
+            max-width: 600px;
+            max-height: 300px;
+            font-family: "Helvetica";
+            margin: 100px auto 0 auto;
+        }
+        /* div uno */
+        section div.uno {
+            background-color: white;
+            height: 230px;
+            width: 300px;
+            float: left;
+            margin-top: 35px;
+            box-sizing: border-box;
+            padding: 40px;
+            
+        }
+        
+        section div.uno h1 {
+            font-size: bold;
+            font-size: 30px;
+            
+        }
+        section div.uno p {
+            color: rgb(190, 190, 190);
+        }
+        /* div dos */
+        section div.dos {
+            background-color: rgb(49, 56, 71);
+            height: 300px;
+            width: 300px;
+            float: left;
+            border-radius: 2%;
+            box-sizing: border-box;
+            padding: 40px;
+            
+        }
+        section div.dos h2 {
+            width: 70px;
+            font-weight: 100;
+            font-size: 16px;
+            margin-bottom: 5px;;
+            margin-top: 0;
+            color: rgb(190, 190, 190);
+        }
+        
+        section div.dos div h2 {
+            float: left;
+        }
+        div.eye {
+            float: left;
+        }
+        div.eye i {
+            color: rgb(190, 190, 190);
+            margin-left: 5px;
+        }
+        section div.dos button {
+            width: 220px;
+            height: 40px;
+            margin-top: 20px;
+            background-color: white;
+        }
+        .dos input {
+            background-color: rgb(49, 56, 71);
+            color: rgb(190, 190, 190);
+            width: 170px;
+            margin-bottom: 20px;
+        }
+        .dos p {
+            color: rgb(190, 190, 190);
+        }
+    </style>
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    loginDesc: "By logging in you agree to the ridiculously long terms you didn't bother to read.",
+                    placeholderUN: "me@example.com",
+                    inputType: "password",
+                    visual: "fas fa-eye-slash",
+                    newUN: "",
+                    newP: "",
+                }
+            },
+            methods: {
+                inputTypeChange() {
+                    if (this.inputType == "password") {
+                        this.inputType = "text";
+                        this.visual = "fas fa-eye";
+                    } else {
+                        this.inputType = "password";
+                        this.visual = "fas fa-eye-slash"
+                    }
+                },
+                validate() {
+                    var email = document.getElementById("email").value;
+                    var atSign = email.indexOf("@");
+                    
+                    var error = document.getElementById("error");
+                    var mistakes = "";
+                    var hasErrors = false;
+
+                    if (this.newP.length < 8){
+                        mistakes += "You need 8 or more characters.";
+                        hasErrors = true;
+                    }
+                    if (atSign === -1) {
+                        mistakes += "The email is missing an '@' sign.";
+                        hasErrors = true;
+                    }
+                    console.log(this.newP.length)
+                    if (hasErrors === true) {
+                        error.innerHTML = mistakes;
+                        return false;
+                    } else {
+                        alert("Login confirmed");
+                        return true;
+                    }
+                }
+            }
+            
+        })
+    </script>
+</body>
+</html>
